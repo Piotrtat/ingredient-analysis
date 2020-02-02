@@ -26,7 +26,7 @@ def article(id):
     return render_template('article.html', id=id)
 
 class IngredientsForm(Form):
-    name = StringField('Ingredients', [validators.Length(min=1, max=50)])
+    name = StringField('Enter the ingredient you are interested in:', [validators.Length(min=1, max=50)])
 
 @app.route('/ingredients', methods=['GET', 'POST'])
 def ingredients():
