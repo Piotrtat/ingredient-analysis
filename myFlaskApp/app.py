@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from data import Articles
+from wtforms import Form, StringField, TextField, PasswordField, validators
 
 
 app = Flask(__name__)
@@ -23,6 +24,16 @@ def articles():
 @app.route('/article/<string:id>/')
 def article(id):
     return render_template('article.html', id=id)
+
+class IngredientsForm(Form):
+    name = StringField('Ingredients', [validators.Length(min=1, max=50)])
+
+@app.route('/ingredients', methods=['GET', 'POST'])
+def ingredients():
+    form = IngredientsForm(request.form)
+    if request.method == 'POST' and form.validate():
+        return render_template('ingredients.html')
+    return render_template('ingredients.html', form=form)
 
 if __name__ == '__main__':
     app.run()
