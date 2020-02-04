@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from data import Articles
 from wtforms import Form, StringField, TextField, PasswordField, validators
 
@@ -32,7 +32,9 @@ class IngredientsForm(Form):
 def ingredients():
     form = IngredientsForm(request.form)
     if request.method == 'POST' and form.validate():
-        return render_template('ingredients.html')
+        name = form.name.data
+        #return render_template('ingredients.html')
+        return redirect(url_for('hello_world'))
     return render_template('ingredients.html', form=form)
 
 if __name__ == '__main__':
